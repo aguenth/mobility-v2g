@@ -1019,6 +1019,10 @@ class Player(BasePlayer):
     sun_distance_10 = models.IntegerField(blank=True, min=0, max=300)
 
 
+class Instruction(Page):
+    form_model = 'player'
+
+
 class Monday(Page):
     form_model = 'player'
     form_fields = [
@@ -1246,4 +1250,4 @@ class Sunday(Page):
         }
 
 
-page_sequence = [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
+page_sequence = [Instruction, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
