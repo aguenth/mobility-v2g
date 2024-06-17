@@ -1097,7 +1097,6 @@ class Monday(Page):
         mo_additional_trips = [
             getattr(player, f'mo_additional_trip_{i}', '') for i in range(1, 11)
         ]
-
         return {
             'additional_trips': mo_additional_trips,
             'days': C.DAYS
@@ -1105,7 +1104,6 @@ class Monday(Page):
 
 
 class Tuesday(Page):
-
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.participant.vars['Wednesday_tue'] = player.Wednesday_tue
@@ -1274,10 +1272,7 @@ class Tuesday(Page):
 
 
 class Wednesday(Page):
-   # @staticmethod
-    #def is_displayed(player: Player):
-     #   return not player.participant.vars.get('Wednesday', False) and not player.participant.vars.get('Wednesday_tue', False)
-
+    @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.participant.vars['Thursday_wed'] = player.Thursday_wed
         player.participant.vars['Friday_wed'] = player.Friday_wed
@@ -1298,6 +1293,67 @@ class Wednesday(Page):
     ]
 
     def vars_for_template(player: Player):
+        initial_values = {
+            'wed_first_trip': player.tue_first_trip if player.participant.vars.get('Wednesday_tue', False) else player.mo_first_trip if player.participant.vars.get('Wednesday', False) else None,
+            'wed_last_trip': player.tue_last_trip if player.participant.vars.get('Wednesday_tue', False) else player.mo_last_trip if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_1': player.tue_additional_trip_1 if player.participant.vars.get('Wednesday_tue', False) else player.mo_additional_trip_1 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_1': player.tue_start_time_1 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_1 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_1': player.tue_duration_1 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_1 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_1': player.tue_distance_1 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_1 if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_2': player.tue_additional_trip_2 if player.participant.vars.get('Wednesday_tue', False) else player.mo_additional_trip_2 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_2': player.tue_start_time_2 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_2 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_2': player.tue_duration_2 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_2 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_2': player.tue_distance_2 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_2 if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_3': player.tue_additional_trip_3 if player.participant.vars.get('Wednesday_tue', False) else player.mo_additional_trip_3 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_3': player.tue_start_time_3 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_3 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_3': player.tue_duration_3 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_3 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_3': player.tue_distance_3 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_3 if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_4': player.tue_additional_trip_4 if player.participant.vars.get('Wednesday_tue', False) else player.mo_additional_trip_4 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_4': player.tue_start_time_4 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_4 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_4': player.tue_duration_4 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_4 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_4': player.tue_distance_4 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_4 if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_5': player.tue_additional_trip_5 if player.participant.vars.get('Wednesday_tue', False) else player.mo_additional_trip_5 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_5': player.tue_start_time_5 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_5 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_5': player.tue_duration_5 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_5 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_5': player.tue_distance_5 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_5 if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_6': player.tue_additional_trip_6 if player.participant.vars.get('Wednesday_tue', False) else player.mo_additional_trip_6 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_6': player.tue_start_time_6 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_6 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_6': player.tue_duration_6 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_6 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_6': player.tue_distance_6 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_6 if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_7': player.tue_additional_trip_7 if player.participant.vars.get('Wednesday_tue', False) else player.mo_additional_trip_7 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_7': player.tue_start_time_7 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_7 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_7': player.tue_duration_7 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_7 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_7': player.tue_distance_7 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_7 if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_8': player.tue_additional_trip_8 if player.participant.vars.get('Wednesday_tue', False) else player.mo_additional_trip_8 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_8': player.tue_start_time_8 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_8 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_8': player.tue_duration_8 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_8 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_8': player.tue_distance_8 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_8 if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_9': player.tue_additional_trip_9 if player.participant.vars.get('Wednesday_tue',False) else player.mo_additional_trip_9 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_9': player.tue_start_time_9 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_9 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_9': player.tue_duration_9 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_9 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_9': player.tue_distance_9 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_9 if player.participant.vars.get('Wednesday', False) else None,
+
+            'wed_additional_trip_10': player.tue_additional_trip_10 if player.participant.vars.get('Wednesday_tue', False) else player.mo_additional_trip_10 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_start_time_10': player.tue_start_time_10 if player.participant.vars.get('Wednesday_tue', False) else player.mo_start_time_10 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_duration_10': player.tue_duration_10 if player.participant.vars.get('Wednesday_tue', False) else player.mo_duration_10 if player.participant.vars.get('Wednesday', False) else None,
+            'wed_distance_10': player.tue_distance_10 if player.participant.vars.get('Wednesday_tue', False) else player.mo_distance_10 if player.participant.vars.get('Wednesday', False) else None,
+
+            'Wednesday_tue': player.participant.vars.get('Wednesday_tue', False),
+            'Thursday_tue': player.participant.vars.get('Thursday_tue', False),
+            'Friday_tue': player.participant.vars.get('Friday_tue', False),
+            'Saturday_tue': player.participant.vars.get('Saturday_tue', False),
+            'Sunday_tue': player.participant.vars.get('Sunday_tue', False)
+        }
+
         wed_additional_trips = [
             getattr(player, 'wed_additional_trip_1', '') or '',
             getattr(player, 'wed_additional_trip_2', '') or '',
@@ -1311,15 +1367,138 @@ class Wednesday(Page):
             getattr(player, 'wed_additional_trip_10', '') or '',
         ]
         return {
+            'initial_values': initial_values,
             'additional_trips': wed_additional_trips,
             'days': C.DAYS_wed
         }
 
+    def get_form_fields(player: Player):
+        fields = [
+            'wed_first_trip', 'wed_last_trip', 'wed_additional_trip_1', 'wed_start_time_1', 'wed_duration_1',
+            'wed_distance_1',
+            'wed_additional_trip_2', 'wed_start_time_2', 'wed_duration_2', 'wed_distance_2', 'wed_additional_trip_3',
+            'wed_start_time_3', 'wed_duration_3', 'wed_distance_3', 'wed_additional_trip_4', 'wed_start_time_4',
+            'wed_duration_4', 'wed_distance_4', 'wed_additional_trip_5', 'wed_start_time_5', 'wed_duration_5',
+            'wed_distance_5', 'wed_additional_trip_6', 'wed_start_time_6', 'wed_duration_6', 'wed_distance_6',
+            'wed_additional_trip_7', 'wed_start_time_7', 'wed_duration_7', 'wed_distance_7', 'wed_additional_trip_8',
+            'wed_start_time_8', 'wed_duration_8', 'wed_distance_8', 'wed_additional_trip_9', 'wed_start_time_9',
+            'wed_duration_9', 'wed_distance_9', 'wed_additional_trip_10', 'wed_start_time_10', 'wed_duration_10',
+            'wed_distance_10', 'Thursday_wed', 'Friday_wed', 'Saturday_wed', 'Sunday_wed'
+        ]
+
+        if player.participant.vars.get('Wednesday_tue', False):
+            player.wed_first_trip = player.tue_first_trip
+            player.wed_last_trip = player.tue_last_trip
+
+            player.wed_additional_trip_1 = player.tue_additional_trip_1
+            player.wed_start_time_1 = player.tue_start_time_1
+            player.wed_distance_1 = player.tue_distance_1
+            player.wed_duration_1 = player.tue_duration_1
+
+            player.wed_additional_trip_2 = player.tue_additional_trip_2
+            player.wed_start_time_2 = player.tue_start_time_2
+            player.wed_distance_2 = player.tue_distance_2
+            player.wed_duration_2 = player.tue_duration_2
+
+            player.wed_additional_trip_3 = player.tue_additional_trip_3
+            player.wed_start_time_3 = player.tue_start_time_3
+            player.wed_distance_3 = player.tue_distance_3
+            player.wed_duration_3 = player.tue_duration_3
+
+            player.wed_additional_trip_4 = player.tue_additional_trip_4
+            player.wed_start_time_4 = player.tue_start_time_4
+            player.wed_distance_4 = player.tue_distance_4
+            player.wed_duration_4 = player.tue_duration_4
+
+            player.wed_additional_trip_5 = player.tue_additional_trip_5
+            player.wed_start_time_5 = player.tue_start_time_5
+            player.wed_distance_5 = player.tue_distance_5
+            player.wed_duration_5 = player.tue_duration_5
+
+            player.wed_additional_trip_6 = player.tue_additional_trip_6
+            player.wed_start_time_6 = player.tue_start_time_6
+            player.wed_distance_6 = player.tue_distance_6
+            player.wed_duration_6 = player.tue_duration_6
+
+            player.wed_additional_trip_7 = player.tue_additional_trip_7
+            player.wed_start_time_7 = player.tue_start_time_7
+            player.wed_distance_7 = player.tue_distance_7
+            player.wed_duration_7 = player.tue_duration_7
+
+            player.wed_additional_trip_8 = player.tue_additional_trip_8
+            player.wed_start_time_8 = player.tue_start_time_8
+            player.wed_distance_8 = player.tue_distance_8
+            player.wed_duration_8 = player.tue_duration_8
+
+            player.wed_additional_trip_9 = player.tue_additional_trip_9
+            player.wed_start_time_9 = player.tue_start_time_9
+            player.wed_distance_9 = player.tue_distance_9
+            player.wed_duration_9 = player.tue_duration_9
+
+            player.wed_additional_trip_10 = player.tue_additional_trip_10
+            player.wed_start_time_10 = player.tue_start_time_10
+            player.wed_distance_10 = player.tue_distance_10
+            player.wed_duration_10 = player.tue_duration_10
+
+        elif player.participant.vars.get('Wednesday', False):
+            player.wed_first_trip = player.mo_first_trip
+            player.wed_last_trip = player.mo_last_trip
+
+            player.wed_additional_trip_1 = player.mo_additional_trip_1
+            player.wed_start_time_1 = player.mo_start_time_1
+            player.wed_distance_1 = player.mo_distance_1
+            player.wed_duration_1 = player.mo_duration_1
+
+            player.wed_additional_trip_2 = player.mo_additional_trip_2
+            player.wed_start_time_2 = player.mo_start_time_2
+            player.wed_distance_2 = player.mo_distance_2
+            player.wed_duration_2 = player.mo_duration_2
+
+            player.wed_additional_trip_3 = player.mo_additional_trip_3
+            player.wed_start_time_3 = player.mo_start_time_3
+            player.wed_distance_3 = player.mo_distance_3
+            player.wed_duration_3 = player.mo_duration_3
+
+            player.wed_additional_trip_4 = player.mo_additional_trip_4
+            player.wed_start_time_4 = player.mo_start_time_4
+            player.wed_distance_4 = player.mo_distance_4
+            player.wed_duration_4 = player.mo_duration_4
+
+            player.wed_additional_trip_5 = player.mo_additional_trip_5
+            player.wed_start_time_5 = player.mo_start_time_5
+            player.wed_distance_5 = player.mo_distance_5
+            player.wed_duration_5 = player.mo_duration_5
+
+            player.wed_additional_trip_6 = player.mo_additional_trip_6
+            player.wed_start_time_6 = player.mo_start_time_6
+            player.wed_distance_6 = player.mo_distance_6
+            player.wed_duration_6 = player.mo_duration_6
+
+            player.wed_additional_trip_7 = player.mo_additional_trip_7
+            player.wed_start_time_7 = player.mo_start_time_7
+            player.wed_distance_7 = player.mo_distance_7
+            player.wed_duration_7 = player.mo_duration_7
+
+            player.wed_additional_trip_8 = player.mo_additional_trip_8
+            player.wed_start_time_8 = player.mo_start_time_8
+            player.wed_distance_8 = player.mo_distance_8
+            player.wed_duration_8 = player.mo_duration_8
+
+            player.wed_additional_trip_9 = player.mo_additional_trip_9
+            player.wed_start_time_9 = player.mo_start_time_9
+            player.wed_distance_9 = player.mo_distance_9
+            player.wed_duration_9 = player.mo_duration_9
+
+            player.wed_additional_trip_10 = player.mo_additional_trip_10
+            player.wed_start_time_10 = player.mo_start_time_10
+            player.wed_distance_10 = player.mo_distance_10
+            player.wed_duration_10 = player.mo_duration_10
+
+        return fields
+
 
 class Thursday(Page):
     @staticmethod
-   # def is_displayed(player: Player):
-    #    return not player.participant.vars.get('Thursday', False) and not player.participant.vars.get('Thursday_tue', False) and not player.participant.vars.get('Thursday_wed', False)
     def before_next_page(player: Player, timeout_happened):
         player.participant.vars['Friday_thu'] = player.Friday_thu
         player.participant.vars['Saturday_thu'] = player.Saturday_thu
@@ -1339,6 +1518,67 @@ class Thursday(Page):
     ]
 
     def vars_for_template(player: Player):
+
+        initial_values = {
+            'thu_first_trip': player.tue_first_trip if player.participant.vars.get('Thursday_tue', False) else player.mo_first_trip if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False) else None,
+            'thu_last_trip': player.tue_last_trip if player.participant.vars.get('Thursday_tue', False) else player.mo_last_trip if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_1': player.tue_additional_trip_1 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_1 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_1': player.tue_start_time_1 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_1 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_1': player.tue_duration_1 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_1 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_1': player.tue_distance_1 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_1 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_2': player.tue_additional_trip_2 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_2 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_2': player.tue_start_time_2 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_2 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_2': player.tue_duration_2 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_2 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_2': player.tue_distance_2 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_2 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_3': player.tue_additional_trip_3 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_3 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_3': player.tue_start_time_3 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_3 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_3': player.tue_duration_3 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_3 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_3': player.tue_distance_3 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_3 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_4': player.tue_additional_trip_4 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_4 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_4': player.tue_start_time_4 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_4 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_4': player.tue_duration_4 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_4 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_4': player.tue_distance_4 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_4 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_5': player.tue_additional_trip_5 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_5 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_5': player.tue_start_time_5 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_5 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_5': player.tue_duration_5 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_5 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_5': player.tue_distance_5 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_5 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_6': player.tue_additional_trip_6 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_6 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_6': player.tue_start_time_6 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_6 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_6': player.tue_duration_6 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_6 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_6': player.tue_distance_6 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_6 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_7': player.tue_additional_trip_7 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_7 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_7': player.tue_start_time_7 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_7 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_7': player.tue_duration_7 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_7 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_7': player.tue_distance_7 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_7 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_8': player.tue_additional_trip_8 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_8 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_8': player.tue_start_time_8 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_8 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_8': player.tue_duration_8 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_8 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_8': player.tue_distance_8 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_8 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_9': player.tue_additional_trip_9 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_9 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_9': player.tue_start_time_9 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_9 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_9': player.tue_duration_9 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_9 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_9': player.tue_distance_9 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_9 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'thu_additional_trip_10': player.tue_additional_trip_10 if player.participant.vars.get('Thursday_tue', False) else player.mo_additional_trip_10 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_start_time_10': player.tue_start_time_10 if player.participant.vars.get('Thursday_tue', False) else player.mo_start_time_10 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_duration_10': player.tue_duration_10 if player.participant.vars.get('Thursday_tue', False) else player.mo_duration_10 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+            'thu_distance_10': player.tue_distance_10 if player.participant.vars.get('Thursday_tue', False) else player.mo_distance_10 if player.participant.vars.get('Thursday', False) else player.mo_first_trip if player.participant.vars.get('Thursday_wed', False)else None,
+
+            'Thursday_tue': player.participant.vars.get('Thursday_wed', False),
+            'Friday_tue': player.participant.vars.get('Friday_wed', False),
+            'Saturday_tue': player.participant.vars.get('Saturday_wed', False),
+            'Sunday_tue': player.participant.vars.get('Sunday_wed', False)
+        }
+
         thu_additional_trips = [
             getattr(player, 'thu_additional_trip_1', '') or '',
             getattr(player, 'thu_additional_trip_2', '') or '',
@@ -1352,15 +1592,192 @@ class Thursday(Page):
             getattr(player, 'thu_additional_trip_10', '') or '',
         ]
         return {
+            'initial_values': initial_values,
             'additional_trips': thu_additional_trips,
             'days': C.DAYS_thu
         }
 
+    def get_form_fields(player: Player):
+        fields = [
+            'thu_first_trip', 'thu_last_trip',
+            'thu_additional_trip_1', 'thu_start_time_1', 'thu_duration_1', 'thu_distance_1',
+            'thu_additional_trip_2', 'thu_start_time_2', 'thu_duration_2', 'thu_distance_2', 'thu_additional_trip_3',
+            'thu_start_time_3', 'thu_duration_3', 'thu_distance_3', 'thu_additional_trip_4', 'thu_start_time_4',
+            'thu_duration_4', 'thu_distance_4', 'thu_additional_trip_5', 'thu_start_time_5', 'thu_duration_5',
+            'thu_distance_5', 'thu_additional_trip_6', 'thu_start_time_6', 'thu_duration_6', 'thu_distance_6',
+            'thu_additional_trip_7', 'thu_start_time_7', 'thu_duration_7', 'thu_distance_7', 'thu_additional_trip_8',
+            'thu_start_time_8', 'thu_duration_8', 'thu_distance_8', 'thu_additional_trip_9', 'thu_start_time_9',
+            'thu_duration_9', 'thu_distance_9', 'thu_additional_trip_10', 'thu_start_time_10', 'thu_duration_10',
+            'thu_distance_10', 'Friday_thu', 'Saturday_thu', 'Sunday_thu'
+        ]
+
+        if player.participant.vars.get('Thursday_tue', False):
+            player.thu_first_trip = player.tue_first_trip
+            player.thu_last_trip = player.tue_last_trip
+
+            player.thu_additional_trip_1 = player.tue_additional_trip_1
+            player.thu_start_time_1 = player.tue_start_time_1
+            player.thu_distance_1 = player.tue_distance_1
+            player.thu_duration_1 = player.tue_duration_1
+
+            player.thu_additional_trip_2 = player.tue_additional_trip_2
+            player.thu_start_time_2 = player.tue_start_time_2
+            player.thu_distance_2 = player.tue_distance_2
+            player.thu_duration_2 = player.tue_duration_2
+
+            player.thu_additional_trip_3 = player.tue_additional_trip_3
+            player.thu_start_time_3 = player.tue_start_time_3
+            player.thu_distance_3 = player.tue_distance_3
+            player.thu_duration_3 = player.tue_duration_3
+
+            player.thu_additional_trip_4 = player.tue_additional_trip_4
+            player.thu_start_time_4 = player.tue_start_time_4
+            player.thu_distance_4 = player.tue_distance_4
+            player.thu_duration_4 = player.tue_duration_4
+
+            player.thu_additional_trip_5 = player.tue_additional_trip_5
+            player.thu_start_time_5 = player.tue_start_time_5
+            player.thu_distance_5 = player.tue_distance_5
+            player.thu_duration_5 = player.tue_duration_5
+
+            player.thu_additional_trip_6 = player.tue_additional_trip_6
+            player.thu_start_time_6 = player.tue_start_time_6
+            player.thu_distance_6 = player.tue_distance_6
+            player.thu_duration_6 = player.tue_duration_6
+
+            player.thu_additional_trip_7 = player.tue_additional_trip_7
+            player.thu_start_time_7 = player.tue_start_time_7
+            player.thu_distance_7 = player.tue_distance_7
+            player.thu_duration_7 = player.tue_duration_7
+
+            player.thu_additional_trip_8 = player.tue_additional_trip_8
+            player.thu_start_time_8 = player.tue_start_time_8
+            player.thu_distance_8 = player.tue_distance_8
+            player.thu_duration_8 = player.tue_duration_8
+
+            player.thu_additional_trip_9 = player.tue_additional_trip_9
+            player.thu_start_time_9 = player.tue_start_time_9
+            player.thu_distance_9 = player.tue_distance_9
+            player.thu_duration_9 = player.tue_duration_9
+
+            player.thu_additional_trip_10 = player.tue_additional_trip_10
+            player.thu_start_time_10 = player.tue_start_time_10
+            player.thu_distance_10 = player.tue_distance_10
+            player.thu_duration_10 = player.tue_duration_10
+
+        elif player.participant.vars.get('Thursday', False):
+            player.thu_first_trip = player.mo_first_trip
+            player.thu_last_trip = player.mo_last_trip
+
+            player.thu_additional_trip_1 = player.mo_additional_trip_1
+            player.thu_start_time_1 = player.mo_start_time_1
+            player.thu_distance_1 = player.mo_distance_1
+            player.thu_duration_1 = player.mo_duration_1
+
+            player.thu_additional_trip_2 = player.mo_additional_trip_2
+            player.thu_start_time_2 = player.mo_start_time_2
+            player.thu_distance_2 = player.mo_distance_2
+            player.thu_duration_2 = player.mo_duration_2
+
+            player.thu_additional_trip_3 = player.mo_additional_trip_3
+            player.thu_start_time_3 = player.mo_start_time_3
+            player.thu_distance_3 = player.mo_distance_3
+            player.thu_duration_3 = player.mo_duration_3
+
+            player.thu_additional_trip_4 = player.mo_additional_trip_4
+            player.thu_start_time_4 = player.mo_start_time_4
+            player.thu_distance_4 = player.mo_distance_4
+            player.thu_duration_4 = player.mo_duration_4
+
+            player.thu_additional_trip_5 = player.mo_additional_trip_5
+            player.thu_start_time_5 = player.mo_start_time_5
+            player.thu_distance_5 = player.mo_distance_5
+            player.thu_duration_5 = player.mo_duration_5
+
+            player.thu_additional_trip_6 = player.mo_additional_trip_6
+            player.thu_start_time_6 = player.mo_start_time_6
+            player.thu_distance_6 = player.mo_distance_6
+            player.thu_duration_6 = player.mo_duration_6
+
+            player.thu_additional_trip_7 = player.mo_additional_trip_7
+            player.thu_start_time_7 = player.mo_start_time_7
+            player.thu_distance_7 = player.mo_distance_7
+            player.thu_duration_7 = player.mo_duration_7
+
+            player.thu_additional_trip_8 = player.mo_additional_trip_8
+            player.thu_start_time_8 = player.mo_start_time_8
+            player.thu_distance_8 = player.mo_distance_8
+            player.thu_duration_8 = player.mo_duration_8
+
+            player.thu_additional_trip_9 = player.mo_additional_trip_9
+            player.thu_start_time_9 = player.mo_start_time_9
+            player.thu_distance_9 = player.mo_distance_9
+            player.thu_duration_9 = player.mo_duration_9
+
+            player.thu_additional_trip_10 = player.mo_additional_trip_10
+            player.thu_start_time_10 = player.mo_start_time_10
+            player.thu_distance_10 = player.mo_distance_10
+            player.thu_duration_10 = player.mo_duration_10
+
+        elif player.participant.vars.get('Thursday_wed', False):
+            player.thu_first_trip = player.wed_first_trip
+            player.thu_last_trip = player.wed_last_trip
+
+            player.thu_additional_trip_1 = player.wed_additional_trip_1
+            player.thu_start_time_1 = player.wed_start_time_1
+            player.thu_distance_1 = player.wed_distance_1
+            player.thu_duration_1 = player.wed_duration_1
+
+            player.thu_additional_trip_2 = player.wed_additional_trip_2
+            player.thu_start_time_2 = player.wed_start_time_2
+            player.thu_distance_2 = player.wed_distance_2
+            player.thu_duration_2 = player.wed_duration_2
+
+            player.thu_additional_trip_3 = player.wed_additional_trip_3
+            player.thu_start_time_3 = player.wed_start_time_3
+            player.thu_distance_3 = player.wed_distance_3
+            player.thu_duration_3 = player.wed_duration_3
+
+            player.thu_additional_trip_4 = player.wed_additional_trip_4
+            player.thu_start_time_4 = player.wed_start_time_4
+            player.thu_distance_4 = player.wed_distance_4
+            player.thu_duration_4 = player.wed_duration_4
+
+            player.thu_additional_trip_5 = player.wed_additional_trip_5
+            player.thu_start_time_5 = player.wed_start_time_5
+            player.thu_distance_5 = player.wed_distance_5
+            player.thu_duration_5 = player.wed_duration_5
+
+            player.thu_additional_trip_6 = player.wed_additional_trip_6
+            player.thu_start_time_6 = player.wed_start_time_6
+            player.thu_distance_6 = player.wed_distance_6
+            player.thu_duration_6 = player.wed_duration_6
+
+            player.thu_additional_trip_7 = player.wed_additional_trip_7
+            player.thu_start_time_7 = player.wed_start_time_7
+            player.thu_distance_7 = player.wed_distance_7
+            player.thu_duration_7 = player.wed_duration_7
+
+            player.thu_additional_trip_8 = player.wed_additional_trip_8
+            player.thu_start_time_8 = player.wed_start_time_8
+            player.thu_distance_8 = player.wed_distance_8
+            player.thu_duration_8 = player.wed_duration_8
+
+            player.thu_additional_trip_9 = player.wed_additional_trip_9
+            player.thu_start_time_9 = player.wed_start_time_9
+            player.thu_distance_9 = player.wed_distance_9
+            player.thu_duration_9 = player.wed_duration_9
+
+            player.thu_additional_trip_10 = player.wed_additional_trip_10
+            player.thu_start_time_10 = player.wed_start_time_10
+            player.thu_distance_10 = player.wed_distance_10
+            player.thu_duration_10 = player.wed_duration_10
+
+        return fields
+
 
 class Friday(Page):
     @staticmethod
-    #def is_displayed(player: Player):
-     #   return not player.participant.vars.get('Friday', False) and not player.participant.vars.get('Friday_tue',False) and not player.participant.vars.get('Friday_wed', False) and not player.participant.vars.get('Friday_thu', False)
     def before_next_page(player: Player, timeout_happened):
         player.participant.vars['Saturday_fri'] = player.Saturday_fri
         player.participant.vars['Sunday_fri'] = player.Sunday_fri
@@ -1399,8 +1816,6 @@ class Friday(Page):
 
 class Saturday(Page):
     @staticmethod
-    #def is_displayed(player: Player):
-     #   return not player.participant.vars.get('Saturday', False) and not player.participant.vars.get('Saturday_tue',False) and not player.participant.vars.get('Saturday_wed', False)  and not player.participant.vars.get('Saturday_fri', False)
     def before_next_page(player: Player, timeout_happened):
         player.participant.vars['Sunday_sat'] = player.Sunday_sat
 
