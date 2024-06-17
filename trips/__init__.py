@@ -1274,9 +1274,9 @@ class Tuesday(Page):
 
 
 class Wednesday(Page):
-    @staticmethod
-    def is_displayed(player: Player):
-        return not player.participant.vars.get('Wednesday', False) and not player.participant.vars.get('Wednesday_tue', False)
+   # @staticmethod
+    #def is_displayed(player: Player):
+     #   return not player.participant.vars.get('Wednesday', False) and not player.participant.vars.get('Wednesday_tue', False)
 
     def before_next_page(player: Player, timeout_happened):
         player.participant.vars['Thursday_wed'] = player.Thursday_wed
@@ -1318,9 +1318,8 @@ class Wednesday(Page):
 
 class Thursday(Page):
     @staticmethod
-    def is_displayed(player: Player):
-        return not player.participant.vars.get('Thursday', False) and not player.participant.vars.get('Thursday_tue', False) and not player.participant.vars.get('Thursday_wed', False)
-
+   # def is_displayed(player: Player):
+    #    return not player.participant.vars.get('Thursday', False) and not player.participant.vars.get('Thursday_tue', False) and not player.participant.vars.get('Thursday_wed', False)
     def before_next_page(player: Player, timeout_happened):
         player.participant.vars['Friday_thu'] = player.Friday_thu
         player.participant.vars['Saturday_thu'] = player.Saturday_thu
@@ -1360,9 +1359,8 @@ class Thursday(Page):
 
 class Friday(Page):
     @staticmethod
-    def is_displayed(player: Player):
-        return not player.participant.vars.get('Friday', False) and not player.participant.vars.get('Friday_tue',False) and not player.participant.vars.get('Friday_wed', False) and not player.participant.vars.get('Friday_thu', False)
-
+    #def is_displayed(player: Player):
+     #   return not player.participant.vars.get('Friday', False) and not player.participant.vars.get('Friday_tue',False) and not player.participant.vars.get('Friday_wed', False) and not player.participant.vars.get('Friday_thu', False)
     def before_next_page(player: Player, timeout_happened):
         player.participant.vars['Saturday_fri'] = player.Saturday_fri
         player.participant.vars['Sunday_fri'] = player.Sunday_fri
@@ -1401,9 +1399,8 @@ class Friday(Page):
 
 class Saturday(Page):
     @staticmethod
-    def is_displayed(player: Player):
-        return not player.participant.vars.get('Saturday', False) and not player.participant.vars.get('Saturday_tue',False) and not player.participant.vars.get('Saturday_wed', False)  and not player.participant.vars.get('Saturday_fri', False)
-
+    #def is_displayed(player: Player):
+     #   return not player.participant.vars.get('Saturday', False) and not player.participant.vars.get('Saturday_tue',False) and not player.participant.vars.get('Saturday_wed', False)  and not player.participant.vars.get('Saturday_fri', False)
     def before_next_page(player: Player, timeout_happened):
         player.participant.vars['Sunday_sat'] = player.Sunday_sat
 
