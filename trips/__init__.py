@@ -11,7 +11,13 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     TIME_CHOICES = [(f'{h:02}:{m:02}', f'{h:02}:{m:02}') for h in range(24) for m in (0, 30)]
-    DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    DAYS = ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    DAYS_tue = ['Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    DAYS_wed = ['Thursday', 'Friday', 'Saturday', 'Sunday']
+    DAYS_thu = ['Friday', 'Saturday', 'Sunday']
+    DAYS_fri = ['Saturday', 'Sunday']
+    DAYS_sat = ['Sunday']
+
 
 
 class Subsession(BaseSubsession):
@@ -24,25 +30,45 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
-    Tuesday = models.BooleanField(blank=True)
-    Wednesday = models.BooleanField(blank=True)
-    Thursday = models.BooleanField(blank=True)
-    Friday = models.BooleanField(blank=True)
-    Saturday = models.BooleanField(blank=True)
-    Sunday = models.BooleanField(blank=True)
+    Tuesday = models.BooleanField(blank=True, initial=False)
+    Wednesday = models.BooleanField(blank=True, initial=False)
+    Thursday = models.BooleanField(blank=True, initial=False)
+    Friday = models.BooleanField(blank=True, initial=False)
+    Saturday = models.BooleanField(blank=True, initial=False)
+    Sunday = models.BooleanField(blank=True, initial=False)
 
-#Monday
+    Wednesday_tue = models.BooleanField(blank=True, initial=False)
+    Thursday_tue = models.BooleanField(blank=True, initial=False)
+    Friday_tue = models.BooleanField(blank=True, initial=False)
+    Saturday_tue = models.BooleanField(blank=True, initial=False)
+    Sunday_tue = models.BooleanField(blank=True, initial=False)
+
+    Thursday_wed = models.BooleanField(blank=True, initial=False)
+    Friday_wed = models.BooleanField(blank=True, initial=False)
+    Saturday_wed = models.BooleanField(blank=True, initial=False)
+    Sunday_wed = models.BooleanField(blank=True, initial=False)
+
+    Friday_thu = models.BooleanField(blank=True, initial=False)
+    Saturday_thu = models.BooleanField(blank=True, initial=False)
+    Sunday_thu = models.BooleanField(blank=True, initial=False)
+
+    Saturday_fri = models.BooleanField(blank=True, initial=False)
+    Sunday_fri = models.BooleanField(blank=True, initial=False)
+
+    Sunday_sat = models.BooleanField(blank=True, initial=False)
+
+# Monday
     mo_first_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Started day at:"
     )
     mo_last_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Ended day at:"
     )
 
     mo_additional_trip_1 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -51,11 +77,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_1 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_1 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_1 = models.StringField(blank=True, default='')
+    mo_distance_1 = models.StringField(blank=True, default='')
 
     mo_additional_trip_2 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -64,11 +90,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_2 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_2 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_2 = models.StringField(blank=True, default='')
+    mo_distance_2 = models.StringField(blank=True, default='')
 
     mo_additional_trip_3 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -77,11 +103,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_3 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_3 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_3 = models.StringField(blank=True, default='')
+    mo_distance_3 = models.StringField(blank=True, default='')
 
     mo_additional_trip_4 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -90,11 +116,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_4 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_4 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_4 = models.StringField(blank=True, default='')
+    mo_distance_4 = models.StringField(blank=True, default='')
 
     mo_additional_trip_5 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -103,11 +129,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_5 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_5 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_5 = models.StringField(blank=True, default='')
+    mo_distance_5 = models.StringField(blank=True, default='')
 
     mo_additional_trip_6 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -116,11 +142,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_6 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_6 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_6 = models.StringField(blank=True, default='')
+    mo_distance_6 = models.StringField(blank=True, default='')
 
     mo_additional_trip_7 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -129,11 +155,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_7 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_7 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_7 = models.StringField(blank=True, default='')
+    mo_distance_7 = models.StringField(blank=True, default='')
 
     mo_additional_trip_8 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -142,11 +168,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_8 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_8 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_8 = models.StringField(blank=True, default='')
+    mo_distance_8 = models.StringField(blank=True, default='')
 
     mo_additional_trip_9 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -155,11 +181,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_9 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_9 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_9 = models.StringField(blank=True, default='')
+    mo_distance_9 = models.StringField(blank=True, default='')
 
     mo_additional_trip_10 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -168,22 +194,22 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    mo_duration_10 = models.IntegerField(blank=True, min=0, max=300)
-    mo_distance_10 = models.IntegerField(blank=True, min=0, max=300)
+    mo_duration_10 = models.StringField(blank=True, default='')
+    mo_distance_10 = models.StringField(blank=True, default='')
 
 
 # Tuesday
     tue_first_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Started day at:"
     )
     tue_last_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Ended day at:"
     )
 
     tue_additional_trip_1 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -192,11 +218,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_1 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_1 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_1 = models.StringField(blank=True, default='')
+    tue_distance_1 = models.StringField(blank=True, default='')
 
     tue_additional_trip_2 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -205,11 +231,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_2 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_2 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_2 = models.StringField(blank=True, default='')
+    tue_distance_2 = models.StringField(blank=True, default='')
 
     tue_additional_trip_3 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -218,11 +244,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_3 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_3 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_3 = models.StringField(blank=True, default='')
+    tue_distance_3 = models.StringField(blank=True, default='')
 
     tue_additional_trip_4 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -231,11 +257,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_4 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_4 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_4 = models.StringField(blank=True, default='')
+    tue_distance_4 = models.StringField(blank=True, default='')
 
     tue_additional_trip_5 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -244,11 +270,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_5 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_5 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_5 = models.StringField(blank=True, default='')
+    tue_distance_5 = models.StringField(blank=True, default='')
 
     tue_additional_trip_6 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -257,11 +283,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_6 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_6 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_6 = models.StringField(blank=True, default='')
+    tue_distance_6 = models.StringField(blank=True, default='')
 
     tue_additional_trip_7 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -270,11 +296,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_7 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_7 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_7 = models.StringField(blank=True, default='')
+    tue_distance_7 = models.StringField(blank=True, default='')
 
     tue_additional_trip_8 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -283,11 +309,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_8 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_8 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_8 = models.StringField(blank=True, default='')
+    tue_distance_8 = models.StringField(blank=True, default='')
 
     tue_additional_trip_9 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -296,11 +322,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_9 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_9 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_9 = models.StringField(blank=True, default='')
+    tue_distance_9 = models.StringField(blank=True, default='')
 
     tue_additional_trip_10 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -309,22 +335,22 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    tue_duration_10 = models.IntegerField(blank=True, min=0, max=300)
-    tue_distance_10 = models.IntegerField(blank=True, min=0, max=300)
+    tue_duration_10 = models.StringField(blank=True, default='')
+    tue_distance_10 = models.StringField(blank=True, default='')
 
 
 # Wednesday
     wed_first_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Started day at:"
     )
     wed_last_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Ended day at:"
     )
 
     wed_additional_trip_1 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -333,11 +359,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_1 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_1 = models.IntegerField(blank=True, min=0, max=300)
+    wed_duration_1 = models.StringField(blank=True, default='')
+    wed_distance_1 = models.StringField(blank=True, default='')
 
     wed_additional_trip_2 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -346,11 +372,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_2 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_2 = models.IntegerField(blank=True, min=0, max=300)
+    wed_duration_2 = models.StringField(blank=True, default='')
+    wed_distance_2 = models.StringField(blank=True, default='')
 
     wed_additional_trip_3 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -359,11 +385,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_3 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_3 = models.IntegerField(blank=True, min=0, max=300)
+    wed_duration_3 = models.StringField(blank=True, default='')
+    wed_distance_3 = models.StringField(blank=True, default='')
 
     wed_additional_trip_4 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -372,11 +398,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_4 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_4 = models.IntegerField(blank=True, min=0, max=300)
+    wed_duration_4 = models.StringField(blank=True, default='')
+    wed_distance_4 = models.StringField(blank=True, default='')
 
     wed_additional_trip_5 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -385,11 +411,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_5 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_5 = models.IntegerField(blank=True, min=0, max=300)
+    wed_duration_5 = models.StringField(blank=True, default='')
+    wed_distance_5 = models.StringField(blank=True, default='')
 
     wed_additional_trip_6 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -398,11 +424,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_6 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_6 = models.IntegerField(blank=True, min=0, max=300)
+    wed_duration_6 = models.StringField(blank=True, default='')
+    wed_distance_6 = models.StringField(blank=True, default='')
 
     wed_additional_trip_7 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -411,11 +437,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_7 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_7 = models.IntegerField(blank=True, min=0, max=300)
+    wed_duration_7 = models.StringField(blank=True, default='')
+    wed_distance_7 = models.StringField(blank=True, default='')
 
     wed_additional_trip_8 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -424,11 +450,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_8 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_8 = models.IntegerField(blank=True, min=0, max=300)
+    wed_duration_8 = models.StringField(blank=True, default='')
+    wed_distance_8 = models.StringField(blank=True, default='')
 
     wed_additional_trip_9 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -437,11 +463,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_9 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_9 = models.IntegerField(blank=True, min=0, max=300)
+    wed_duration_9 = models.StringField(blank=True, default='')
+    wed_distance_9 = models.StringField(blank=True, default='')
 
     wed_additional_trip_10 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -450,23 +476,22 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    wed_duration_10 = models.IntegerField(blank=True, min=0, max=300)
-    wed_distance_10 = models.IntegerField(blank=True, min=0, max=300)
-
+    wed_duration_10 = models.StringField(blank=True, default='')
+    wed_distance_10 = models.StringField(blank=True, default='')
 
 
 # Thursday
     thu_first_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Started day at:"
     )
     thu_last_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Ended day at:"
     )
 
     thu_additional_trip_1 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -475,11 +500,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_1 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_1 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_1 = models.StringField(blank=True, default='')
+    thu_distance_1 = models.StringField(blank=True, default='')
 
     thu_additional_trip_2 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -488,11 +513,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_2 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_2 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_2 = models.StringField(blank=True, default='')
+    thu_distance_2 = models.StringField(blank=True, default='')
 
     thu_additional_trip_3 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -501,11 +526,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_3 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_3 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_3 = models.StringField(blank=True, default='')
+    thu_distance_3 = models.StringField(blank=True, default='')
 
     thu_additional_trip_4 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -514,11 +539,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_4 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_4 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_4 = models.StringField(blank=True, default='')
+    thu_distance_4 = models.StringField(blank=True, default='')
 
     thu_additional_trip_5 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -527,11 +552,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_5 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_5 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_5 = models.StringField(blank=True, default='')
+    thu_distance_5 = models.StringField(blank=True, default='')
 
     thu_additional_trip_6 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -540,11 +565,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_6 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_6 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_6 = models.StringField(blank=True, default='')
+    thu_distance_6 = models.StringField(blank=True, default='')
 
     thu_additional_trip_7 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -553,11 +578,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_7 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_7 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_7 = models.StringField(blank=True, default='')
+    thu_distance_7 = models.StringField(blank=True, default='')
 
     thu_additional_trip_8 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -566,11 +591,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_8 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_8 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_8 = models.StringField(blank=True, default='')
+    thu_distance_8 = models.StringField(blank=True, default='')
 
     thu_additional_trip_9 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -579,11 +604,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_9 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_9 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_9 = models.StringField(blank=True, default='')
+    thu_distance_9 = models.StringField(blank=True, default='')
 
     thu_additional_trip_10 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -592,22 +617,22 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    thu_duration_10 = models.IntegerField(blank=True, min=0, max=300)
-    thu_distance_10 = models.IntegerField(blank=True, min=0, max=300)
+    thu_duration_10 = models.StringField(blank=True, default='')
+    thu_distance_10 = models.StringField(blank=True, default='')
 
 
 # Friday
     fri_first_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Started day at:"
     )
     fri_last_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Ended day at:"
     )
 
     fri_additional_trip_1 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -616,11 +641,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_1 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_1 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_1 = models.StringField(blank=True, default='')
+    fri_distance_1 = models.StringField(blank=True, default='')
 
     fri_additional_trip_2 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -629,11 +654,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_2 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_2 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_2 = models.StringField(blank=True, default='')
+    fri_distance_2 = models.StringField(blank=True, default='')
 
     fri_additional_trip_3 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -642,11 +667,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_3 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_3 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_3 = models.StringField(blank=True, default='')
+    fri_distance_3 = models.StringField(blank=True, default='')
 
     fri_additional_trip_4 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -655,11 +680,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_4 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_4 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_4 = models.StringField(blank=True, default='')
+    fri_distance_4 = models.StringField(blank=True, default='')
 
     fri_additional_trip_5 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -668,11 +693,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_5 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_5 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_5 = models.StringField(blank=True, default='')
+    fri_distance_5 = models.StringField(blank=True, default='')
 
     fri_additional_trip_6 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -681,11 +706,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_6 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_6 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_6 = models.StringField(blank=True, default='')
+    fri_distance_6 = models.StringField(blank=True, default='')
 
     fri_additional_trip_7 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -694,11 +719,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_7 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_7 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_7 = models.StringField(blank=True, default='')
+    fri_distance_7 = models.StringField(blank=True, default='')
 
     fri_additional_trip_8 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -707,11 +732,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_8 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_8 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_8 = models.StringField(blank=True, default='')
+    fri_distance_8 = models.StringField(blank=True, default='')
 
     fri_additional_trip_9 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -720,11 +745,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_9 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_9 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_9 = models.StringField(blank=True, default='')
+    fri_distance_9 = models.StringField(blank=True, default='')
 
     fri_additional_trip_10 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -733,22 +758,22 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    fri_duration_10 = models.IntegerField(blank=True, min=0, max=300)
-    fri_distance_10 = models.IntegerField(blank=True, min=0, max=300)
+    fri_duration_10 = models.StringField(blank=True, default='')
+    fri_distance_10 = models.StringField(blank=True, default='')
 
 
 # Saturday
     sat_first_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Started day at:"
     )
     sat_last_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Ended day at:"
     )
 
     sat_additional_trip_1 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -757,11 +782,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_1 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_1 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_1 = models.StringField(blank=True, default='')
+    sat_distance_1 = models.StringField(blank=True, default='')
 
     sat_additional_trip_2 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -770,11 +795,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_2 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_2 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_2 = models.StringField(blank=True, default='')
+    sat_distance_2 = models.StringField(blank=True, default='')
 
     sat_additional_trip_3 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -783,11 +808,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_3 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_3 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_3 = models.StringField(blank=True, default='')
+    sat_distance_3 = models.StringField(blank=True, default='')
 
     sat_additional_trip_4 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -796,11 +821,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_4 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_4 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_4 = models.StringField(blank=True, default='')
+    sat_distance_4 = models.StringField(blank=True, default='')
 
     sat_additional_trip_5 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -809,11 +834,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_5 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_5 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_5 = models.StringField(blank=True, default='')
+    sat_distance_5 = models.StringField(blank=True, default='')
 
     sat_additional_trip_6 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -822,11 +847,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_6 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_6 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_6 = models.StringField(blank=True, default='')
+    sat_distance_6 = models.StringField(blank=True, default='')
 
     sat_additional_trip_7 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -835,11 +860,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_7 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_7 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_7 = models.StringField(blank=True, default='')
+    sat_distance_7 = models.StringField(blank=True, default='')
 
     sat_additional_trip_8 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -848,11 +873,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_8 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_8 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_8 = models.StringField(blank=True, default='')
+    sat_distance_8 = models.StringField(blank=True, default='')
 
     sat_additional_trip_9 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -861,11 +886,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_9 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_9 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_9 = models.StringField(blank=True, default='')
+    sat_distance_9 = models.StringField(blank=True, default='')
 
     sat_additional_trip_10 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -874,22 +899,22 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sat_duration_10 = models.IntegerField(blank=True, min=0, max=300)
-    sat_distance_10 = models.IntegerField(blank=True, min=0, max=300)
+    sat_duration_10 = models.StringField(blank=True, default='')
+    sat_distance_10 = models.StringField(blank=True, default='')
 
 
 # Sunday
     sun_first_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Started day at:"
     )
     sun_last_trip = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         label="Ended day at:"
     )
 
     sun_additional_trip_1 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -898,11 +923,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_1 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_1 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_1 = models.StringField(blank=True, default='')
+    sun_distance_1 = models.StringField(blank=True, default='')
 
     sun_additional_trip_2 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -911,11 +936,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_2 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_2 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_2 = models.StringField(blank=True, default='')
+    sun_distance_2 = models.StringField(blank=True, default='')
 
     sun_additional_trip_3 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -924,11 +949,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_3 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_3 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_3 = models.StringField(blank=True, default='')
+    sun_distance_3 = models.StringField(blank=True, default='')
 
     sun_additional_trip_4 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -937,11 +962,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_4 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_4 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_4 = models.StringField(blank=True, default='')
+    sun_distance_4 = models.StringField(blank=True, default='')
 
     sun_additional_trip_5 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -950,11 +975,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_5 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_5 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_5 = models.StringField(blank=True, default='')
+    sun_distance_5 = models.StringField(blank=True, default='')
 
     sun_additional_trip_6 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -963,11 +988,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_6 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_6 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_6 = models.StringField(blank=True, default='')
+    sun_distance_6 = models.StringField(blank=True, default='')
 
     sun_additional_trip_7 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -976,11 +1001,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_7 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_7 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_7 = models.StringField(blank=True, default='')
+    sun_distance_7 = models.StringField(blank=True, default='')
 
     sun_additional_trip_8 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -989,11 +1014,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_8 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_8 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_8 = models.StringField(blank=True, default='')
+    sun_distance_8 = models.StringField(blank=True, default='')
 
     sun_additional_trip_9 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -1002,11 +1027,11 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_9 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_9 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_9 = models.StringField(blank=True, default='')
+    sun_distance_9 = models.StringField(blank=True, default='')
 
     sun_additional_trip_10 = models.StringField(
-        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Outdoors', 'Other'],
+        choices=['Home', 'Work', 'School', 'Groceries', 'Errands', 'Social', 'Sports', 'Other'],
         blank=True,
         default=''
     )
@@ -1015,12 +1040,35 @@ class Player(BasePlayer):
         blank=True,
         default=''
     )
-    sun_duration_10 = models.IntegerField(blank=True, min=0, max=300)
-    sun_distance_10 = models.IntegerField(blank=True, min=0, max=300)
+    sun_duration_10 = models.StringField(blank=True, default='')
+    sun_distance_10 = models.StringField(blank=True, default='')
 
 
 class Instruction(Page):
     form_model = 'player'
+
+    def before_next_page(player: Player, timeout_happened):
+        player.participant.vars['Tuesday'] = player.Tuesday
+        player.participant.vars['Wednesday'] = player.Wednesday
+        player.participant.vars['Thursday'] = player.Thursday
+        player.participant.vars['Friday'] = player.Friday
+        player.participant.vars['Saturday'] = player.Saturday
+        player.participant.vars['Sunday'] = player.Sunday
+        player.participant.vars['Wednesday_tue'] = player.Wednesday_tue
+        player.participant.vars['Thursday_tue'] = player.Thursday_tue
+        player.participant.vars['Friday_tue'] = player.Friday_tue
+        player.participant.vars['Saturday_tue'] = player.Saturday_tue
+        player.participant.vars['Sunday_tue'] = player.Sunday_tue
+        player.participant.vars['Thursday_wed'] = player.Thursday_wed
+        player.participant.vars['Friday_wed'] = player.Friday_wed
+        player.participant.vars['Saturday_wed'] = player.Saturday_wed
+        player.participant.vars['Sunday_wed'] = player.Sunday_wed
+        player.participant.vars['Friday_thu'] = player.Friday_thu
+        player.participant.vars['Saturday_thu'] = player.Saturday_thu
+        player.participant.vars['Sunday_thu'] = player.Sunday_thu
+        player.participant.vars['Saturday_fri'] = player.Saturday_fri
+        player.participant.vars['Sunday_fri'] = player.Sunday_fri
+        player.participant.vars['Sunday_sat'] = player.Sunday_sat
 
 
 class Monday(Page):
@@ -1037,19 +1085,19 @@ class Monday(Page):
         'mo_distance_10', 'Thursday', 'Tuesday', 'Wednesday', 'Friday', 'Saturday', 'Sunday'
     ]
 
+    def before_next_page(player: Player, timeout_happened):
+        player.participant.vars['Tuesday'] = player.Tuesday
+        player.participant.vars['Wednesday'] = player.Wednesday
+        player.participant.vars['Thursday'] = player.Thursday
+        player.participant.vars['Friday'] = player.Friday
+        player.participant.vars['Saturday'] = player.Saturday
+        player.participant.vars['Sunday'] = player.Sunday
+
     def vars_for_template(player: Player):
         mo_additional_trips = [
-            getattr(player, 'mo_additional_trip_1', '') or '',
-            getattr(player, 'mo_additional_trip_2', '') or '',
-            getattr(player, 'mo_additional_trip_3', '') or '',
-            getattr(player, 'mo_additional_trip_4', '') or '',
-            getattr(player, 'mo_additional_trip_5', '') or '',
-            getattr(player, 'mo_additional_trip_6', '') or '',
-            getattr(player, 'mo_additional_trip_7', '') or '',
-            getattr(player, 'mo_additional_trip_8', '') or '',
-            getattr(player, 'mo_additional_trip_9', '') or '',
-            getattr(player, 'mo_additional_trip_10', '') or '',
+            getattr(player, f'mo_additional_trip_{i}', '') for i in range(1, 11)
         ]
+
         return {
             'additional_trips': mo_additional_trips,
             'days': C.DAYS
@@ -1057,6 +1105,15 @@ class Monday(Page):
 
 
 class Tuesday(Page):
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        player.participant.vars['Wednesday_tue'] = player.Wednesday_tue
+        player.participant.vars['Thursday_tue'] = player.Thursday_tue
+        player.participant.vars['Friday_tue'] = player.Friday_tue
+        player.participant.vars['Saturday_tue'] = player.Saturday_tue
+        player.participant.vars['Sunday_tue'] = player.Sunday_tue
+
     form_model = 'player'
     form_fields = [
         'tue_first_trip', 'tue_last_trip', 'tue_additional_trip_1', 'tue_start_time_1', 'tue_duration_1', 'tue_distance_1',
@@ -1067,10 +1124,66 @@ class Tuesday(Page):
         'tue_additional_trip_7', 'tue_start_time_7', 'tue_duration_7', 'tue_distance_7', 'tue_additional_trip_8',
         'tue_start_time_8', 'tue_duration_8', 'tue_distance_8', 'tue_additional_trip_9', 'tue_start_time_9',
         'tue_duration_9', 'tue_distance_9', 'tue_additional_trip_10', 'tue_start_time_10', 'tue_duration_10',
-        'tue_distance_10'
+        'tue_distance_10', 'Wednesday_tue', 'Thursday_tue', 'Friday_tue', 'Saturday_tue', 'Sunday_tue'
     ]
 
+    @staticmethod
     def vars_for_template(player: Player):
+        initial_values = {
+            'tue_first_trip': player.mo_first_trip if player.participant.vars.get('Tuesday', False) else None,
+            'tue_last_trip': player.mo_last_trip if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_1': player.mo_additional_trip_1 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_1': player.mo_start_time_1 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_1': player.mo_duration_1 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_1': player.mo_distance_1 if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_2': player.mo_additional_trip_2 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_2': player.mo_start_time_2 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_2': player.mo_duration_2 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_2': player.mo_distance_2 if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_3': player.mo_additional_trip_3 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_3': player.mo_start_time_3 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_3': player.mo_duration_3 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_3': player.mo_distance_3 if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_4': player.mo_additional_trip_4 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_4': player.mo_start_time_4 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_4': player.mo_duration_4 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_4': player.mo_distance_4 if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_5': player.mo_additional_trip_5 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_5': player.mo_start_time_5 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_5': player.mo_duration_5 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_5': player.mo_distance_5 if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_6': player.mo_additional_trip_6 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_6': player.mo_start_time_6 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_6': player.mo_duration_6 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_6': player.mo_distance_6 if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_7': player.mo_additional_trip_7 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_7': player.mo_start_time_7 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_7': player.mo_duration_7 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_7': player.mo_distance_7 if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_8': player.mo_additional_trip_8 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_8': player.mo_start_time_8 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_8': player.mo_duration_8 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_8': player.mo_distance_8 if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_9': player.mo_additional_trip_9 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_9': player.mo_start_time_9 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_9': player.mo_duration_9 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_9': player.mo_distance_9 if player.participant.vars.get('Tuesday', False) else None,
+
+            'tue_additional_trip_10': player.mo_additional_trip_10 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_start_time_10': player.mo_start_time_10 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_duration_10': player.mo_duration_10 if player.participant.vars.get('Tuesday', False) else None,
+            'tue_distance_10': player.mo_distance_10 if player.participant.vars.get('Tuesday', False) else None,
+        }
+
         tue_additional_trips = [
             getattr(player, 'tue_additional_trip_1', '') or '',
             getattr(player, 'tue_additional_trip_2', '') or '',
@@ -1083,12 +1196,94 @@ class Tuesday(Page):
             getattr(player, 'tue_additional_trip_9', '') or '',
             getattr(player, 'tue_additional_trip_10', '') or '',
         ]
+
         return {
-            'additional_trips': tue_additional_trips
+            'initial_values': initial_values,
+            'additional_trips': tue_additional_trips,
+            'days': C.DAYS_tue
         }
+
+    def get_form_fields(player: Player):
+        fields = [
+            'tue_first_trip', 'tue_last_trip', 'tue_additional_trip_1', 'tue_start_time_1', 'tue_duration_1', 'tue_distance_1',
+            'tue_additional_trip_2', 'tue_start_time_2', 'tue_duration_2', 'tue_distance_2', 'tue_additional_trip_3',
+            'tue_start_time_3', 'tue_duration_3', 'tue_distance_3', 'tue_additional_trip_4', 'tue_start_time_4',
+            'tue_duration_4', 'tue_distance_4', 'tue_additional_trip_5', 'tue_start_time_5', 'tue_duration_5',
+            'tue_distance_5', 'tue_additional_trip_6', 'tue_start_time_6', 'tue_duration_6', 'tue_distance_6',
+            'tue_additional_trip_7', 'tue_start_time_7', 'tue_duration_7', 'tue_distance_7', 'tue_additional_trip_8',
+            'tue_start_time_8', 'tue_duration_8', 'tue_distance_8', 'tue_additional_trip_9', 'tue_start_time_9',
+            'tue_duration_9', 'tue_distance_9', 'tue_additional_trip_10', 'tue_start_time_10', 'tue_duration_10',
+            'tue_distance_10', 'Wednesday_tue', 'Thursday_tue', 'Friday_tue', 'Saturday_tue', 'Sunday_tue'
+        ]
+
+        if player.participant.vars.get('Tuesday', False):
+            player.tue_first_trip = player.mo_first_trip
+            player.tue_last_trip = player.mo_last_trip
+
+            player.tue_additional_trip_1 = player.mo_additional_trip_1
+            player.tue_start_time_1 = player.mo_start_time_1
+            player.tue_distance_1 = player.mo_distance_1
+            player.tue_duration_1 = player.mo_duration_1
+
+            player.tue_additional_trip_2 = player.mo_additional_trip_2
+            player.tue_start_time_2 = player.mo_start_time_2
+            player.tue_distance_2 = player.mo_distance_2
+            player.tue_duration_2 = player.mo_duration_2
+
+            player.tue_additional_trip_3 = player.mo_additional_trip_3
+            player.tue_start_time_3 = player.mo_start_time_3
+            player.tue_distance_3 = player.mo_distance_3
+            player.tue_duration_3 = player.mo_duration_3
+
+            player.tue_additional_trip_4 = player.mo_additional_trip_4
+            player.tue_start_time_4 = player.mo_start_time_4
+            player.tue_distance_4 = player.mo_distance_4
+            player.tue_duration_4 = player.mo_duration_4
+
+            player.tue_additional_trip_5 = player.mo_additional_trip_5
+            player.tue_start_time_5 = player.mo_start_time_5
+            player.tue_distance_5 = player.mo_distance_5
+            player.tue_duration_5 = player.mo_duration_5
+
+            player.tue_additional_trip_6 = player.mo_additional_trip_6
+            player.tue_start_time_6 = player.mo_start_time_6
+            player.tue_distance_6 = player.mo_distance_6
+            player.tue_duration_6 = player.mo_duration_6
+
+            player.tue_additional_trip_7 = player.mo_additional_trip_7
+            player.tue_start_time_7 = player.mo_start_time_7
+            player.tue_distance_7 = player.mo_distance_7
+            player.tue_duration_7 = player.mo_duration_7
+
+            player.tue_additional_trip_8 = player.mo_additional_trip_8
+            player.tue_start_time_8 = player.mo_start_time_8
+            player.tue_distance_8 = player.mo_distance_8
+            player.tue_duration_8 = player.mo_duration_8
+
+            player.tue_additional_trip_9 = player.mo_additional_trip_9
+            player.tue_start_time_9 = player.mo_start_time_9
+            player.tue_distance_9 = player.mo_distance_9
+            player.tue_duration_9 = player.mo_duration_9
+
+            player.tue_additional_trip_10 = player.mo_additional_trip_10
+            player.tue_start_time_10 = player.mo_start_time_10
+            player.tue_distance_10 = player.mo_distance_10
+            player.tue_duration_10= player.mo_duration_10
+
+        return fields
 
 
 class Wednesday(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return not player.participant.vars.get('Wednesday', False) and not player.participant.vars.get('Wednesday_tue', False)
+
+    def before_next_page(player: Player, timeout_happened):
+        player.participant.vars['Thursday_wed'] = player.Thursday_wed
+        player.participant.vars['Friday_wed'] = player.Friday_wed
+        player.participant.vars['Saturday_wed'] = player.Saturday_wed
+        player.participant.vars['Sunday_wed'] = player.Sunday_wed
+
     form_model = 'player'
     form_fields = [
         'wed_first_trip', 'wed_last_trip', 'wed_additional_trip_1', 'wed_start_time_1', 'wed_duration_1', 'wed_distance_1',
@@ -1099,7 +1294,7 @@ class Wednesday(Page):
         'wed_additional_trip_7', 'wed_start_time_7', 'wed_duration_7', 'wed_distance_7', 'wed_additional_trip_8',
         'wed_start_time_8', 'wed_duration_8', 'wed_distance_8', 'wed_additional_trip_9', 'wed_start_time_9',
         'wed_duration_9', 'wed_distance_9', 'wed_additional_trip_10', 'wed_start_time_10', 'wed_duration_10',
-        'wed_distance_10'
+        'wed_distance_10', 'Thursday_wed', 'Friday_wed', 'Saturday_wed', 'Sunday_wed'
     ]
 
     def vars_for_template(player: Player):
@@ -1116,11 +1311,21 @@ class Wednesday(Page):
             getattr(player, 'wed_additional_trip_10', '') or '',
         ]
         return {
-            'additional_trips': wed_additional_trips
+            'additional_trips': wed_additional_trips,
+            'days': C.DAYS_wed
         }
 
 
 class Thursday(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return not player.participant.vars.get('Thursday', False) and not player.participant.vars.get('Thursday_tue', False) and not player.participant.vars.get('Thursday_wed', False)
+
+    def before_next_page(player: Player, timeout_happened):
+        player.participant.vars['Friday_thu'] = player.Friday_thu
+        player.participant.vars['Saturday_thu'] = player.Saturday_thu
+        player.participant.vars['Sunday_thu'] = player.Sunday_thu
+
     form_model = 'player'
     form_fields = [
         'thu_first_trip', 'thu_last_trip', 'thu_additional_trip_1', 'thu_start_time_1', 'thu_duration_1', 'thu_distance_1',
@@ -1131,7 +1336,7 @@ class Thursday(Page):
         'thu_additional_trip_7', 'thu_start_time_7', 'thu_duration_7', 'thu_distance_7', 'thu_additional_trip_8',
         'thu_start_time_8', 'thu_duration_8', 'thu_distance_8', 'thu_additional_trip_9', 'thu_start_time_9',
         'thu_duration_9', 'thu_distance_9', 'thu_additional_trip_10', 'thu_start_time_10', 'thu_duration_10',
-        'thu_distance_10'
+        'thu_distance_10', 'Friday_thu', 'Saturday_thu', 'Sunday_thu'
     ]
 
     def vars_for_template(player: Player):
@@ -1148,11 +1353,20 @@ class Thursday(Page):
             getattr(player, 'thu_additional_trip_10', '') or '',
         ]
         return {
-            'additional_trips': thu_additional_trips
+            'additional_trips': thu_additional_trips,
+            'days': C.DAYS_thu
         }
 
 
 class Friday(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return not player.participant.vars.get('Friday', False) and not player.participant.vars.get('Friday_tue',False) and not player.participant.vars.get('Friday_wed', False) and not player.participant.vars.get('Friday_thu', False)
+
+    def before_next_page(player: Player, timeout_happened):
+        player.participant.vars['Saturday_fri'] = player.Saturday_fri
+        player.participant.vars['Sunday_fri'] = player.Sunday_fri
+
     form_model = 'player'
     form_fields = [
         'fri_first_trip', 'fri_last_trip', 'fri_additional_trip_1', 'fri_start_time_1', 'fri_duration_1', 'fri_distance_1',
@@ -1163,7 +1377,7 @@ class Friday(Page):
         'fri_additional_trip_7', 'fri_start_time_7', 'fri_duration_7', 'fri_distance_7', 'fri_additional_trip_8',
         'fri_start_time_8', 'fri_duration_8', 'fri_distance_8', 'fri_additional_trip_9', 'fri_start_time_9',
         'fri_duration_9', 'fri_distance_9', 'fri_additional_trip_10', 'fri_start_time_10', 'fri_duration_10',
-        'fri_distance_10'
+        'fri_distance_10', 'Saturday_fri', 'Sunday_fri'
     ]
 
     def vars_for_template(player: Player):
@@ -1180,11 +1394,19 @@ class Friday(Page):
             getattr(player, 'fri_additional_trip_10', '') or '',
         ]
         return {
-            'additional_trips': fri_additional_trips
+            'additional_trips': fri_additional_trips,
+            'days': C.DAYS_fri
         }
 
 
 class Saturday(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return not player.participant.vars.get('Saturday', False) and not player.participant.vars.get('Saturday_tue',False) and not player.participant.vars.get('Saturday_wed', False)  and not player.participant.vars.get('Saturday_fri', False)
+
+    def before_next_page(player: Player, timeout_happened):
+        player.participant.vars['Sunday_sat'] = player.Sunday_sat
+
     form_model = 'player'
     form_fields = [
         'sat_first_trip', 'sat_last_trip', 'sat_additional_trip_1', 'sat_start_time_1', 'sat_duration_1',
@@ -1196,7 +1418,7 @@ class Saturday(Page):
         'sat_additional_trip_7', 'sat_start_time_7', 'sat_duration_7', 'sat_distance_7', 'sat_additional_trip_8',
         'sat_start_time_8', 'sat_duration_8', 'sat_distance_8', 'sat_additional_trip_9', 'sat_start_time_9',
         'sat_duration_9', 'sat_distance_9', 'sat_additional_trip_10', 'sat_start_time_10', 'sat_duration_10',
-        'sat_distance_10'
+        'sat_distance_10', 'Sunday_sat'
     ]
 
     def vars_for_template(player: Player):
@@ -1213,11 +1435,20 @@ class Saturday(Page):
             getattr(player, 'sat_additional_trip_10', '') or '',
         ]
         return {
-            'additional_trips': sat_additional_trips
+            'additional_trips': sat_additional_trips,
+            'days': C.DAYS_sat
         }
 
 
 class Sunday(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return (not player.participant.vars.get('Sunday', False)
+                and not player.participant.vars.get('Sunday_tue',False)
+                and not player.participant.vars.get('Sunday_wed', False)
+                and not player.participant.vars.get('Sunday_fri', False)
+                and not player.participant.vars.get('Sunday_sat', False))
+
     form_model = 'player'
     form_fields = [
         'sun_first_trip', 'sun_last_trip', 'sun_additional_trip_1', 'sun_start_time_1', 'sun_duration_1',

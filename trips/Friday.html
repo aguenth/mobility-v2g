@@ -106,6 +106,22 @@
     <br><br>
 </form>
 
+<p>Are there other days of the week on which you typically did exactly the same trips as the above? Select all that apply.</p>
+
+{% if not participant.vars.Saturday and not participant.vars.Saturday_tue and not participant.vars.Saturday_wed and not participant.vars.Saturday_thu %}
+    <label id="label_Saturday_fri">
+        <input type="checkbox" name="Saturday_fri" value="1">
+        Saturday
+    </label><br>
+{% endif %}
+
+{% if not participant.vars.Sunday and not participant.vars.Sunday_tue and not participant.vars.Sunday_wed and not participant.vars.Sunday_thu%}
+    <label id="label_Sunday_fri">
+        <input type="checkbox" name="Sunday_fri" value="1">
+        Sunday
+    </label><br>
+{% endif %}
+
 <button style="float: right; margin-top: 2vh;" class="otree-btn-next btn btn-primary" >Next</button>
 
 <style>

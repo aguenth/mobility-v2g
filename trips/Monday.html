@@ -105,9 +105,16 @@
     </div>
     <br><br>
 </form>
+<br>
+<p>Are there other days of the week on which you typically did exactly the same trips as the above? Select all that apply.</p>
+{{ for day in days }}
+<label>
+    <input type="checkbox" name="{{ day }}" value="1">
+    {{ day }}
+</label><br>
+{{ endfor }}
 
 <button style="float: right; margin-top: 2vh;" class="otree-btn-next btn btn-primary" >Next</button>
-
 
 <style>
     #additional-trips-table-thead {
