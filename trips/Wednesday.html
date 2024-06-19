@@ -105,7 +105,14 @@
     </div>
     <br><br>
 </form>
-<p>Are there other days of the week on which you typically did exactly the same trips as the above? Select all that apply.</p>
+
+{% if not (participant.vars.Thursday and participant.vars.Thursday_tue)
+        and not (participant.vars.Friday and participant.vars.Friday_tue)
+        and not (participant.vars.Saturday and participant.vars.Saturday_tue)
+        and not (participant.vars.Sunday and participant.vars.Sunday_tue) %}
+    <p>Are there other days of the week on which you typically did exactly the same trips as the above? Select all that apply.</p>
+{% endif %}
+
 
 {% if not participant.vars.Thursday and not participant.vars.Thursday_tue %}
     <label id="label_Thursday_wed">
