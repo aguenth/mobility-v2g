@@ -106,9 +106,8 @@
     <br><br>
 </form>
 
-{% if not participant.vars.Wednesday or not participant.vars.Thursday or not participant.vars.Friday or not participant.vars.Saturday or not participant.vars.Sunday %}
+
 <p>Are there other days of the week on which you typically did exactly the same trips as the above? Select all that apply.</p>
-{% endif %}
 
 {% if not participant.vars.Wednesday %}
     <label id="label_Wednesday_tue">
