@@ -315,7 +315,6 @@ document.querySelectorAll('.remove-trip').forEach(function(button) {
 // Modal elements
 const modal = document.getElementById("warningModal");
 const closeModal = document.getElementsByClassName("close")[0];
-let proceedAfterWarning = false;
 
 closeModal.onclick = function() {
     modal.style.display = "none";
@@ -339,6 +338,18 @@ function validateTrips(includeHomeCheck) {
     errorMessages.forEach(function(errorMessage) {
         errorMessage.remove();
     });
+
+    // Check if tue_first_trip is the same as participant.vars.mo_last_trip
+    const tueFirstTrip = document.querySelector('[name="tue_first_trip"]').value;
+    const moLastTrip = "{{ participant.vars.mo_last_trip }}";
+    if (tueFirstTrip !== moLastTrip) {
+        const errorDiv = document.createElement('div');
+        errorDiv.classList.add('error-message'); // Add class to identify error messages
+        errorDiv.style.color = 'red';
+        errorDiv.innerText = 'Error: The starting location of your day must match the ending location of your previous day, which was {{ participant.vars.mo_last_trip }}.';
+        document.querySelector('form').insertAdjacentElement('beforebegin', errorDiv);
+        return false; // Stop further checks if the first trip doesn't match the last trip
+    }
 
     // Check if all displayed rows have all fields filled in
     let allFieldsFilled = true;
@@ -441,33 +452,32 @@ function validateTrips(includeHomeCheck) {
     return true;
 }
 
-
-    // Prepopulate additional trips if they have initial values
-    const initialTrips = {{ additional_trips|safe }};
-    for (let i = 1; i <= 10; i++) {
-        if (initialTrips[i-1]) {
-            document.getElementById('additional_trip_' + i).style.display = 'table-row';
-            document.getElementById('additional-trips-table-thead').style.display = 'table-header-group';
-        }
+// Prepopulate additional trips if they have initial values
+const initialTrips = {{ additional_trips|safe }};
+for (let i = 1; i <= 10; i++) {
+    if (initialTrips[i-1]) {
+        document.getElementById('additional_trip_' + i).style.display = 'table-row';
+        document.getElementById('additional-trips-table-thead').style.display = 'table-header-group';
     }
+}
 
-    // Display question about days conditionally depending on whether there are days left
-    document.addEventListener('DOMContentLoaded', function() {
-        const question = document.getElementById('days-of-week-question');
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        let checkboxesDisplayed = false;
+// Display question about days conditionally depending on whether there are days left
+document.addEventListener('DOMContentLoaded', function() {
+    const question = document.getElementById('days-of-week-question');
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let checkboxesDisplayed = false;
 
-        checkboxes.forEach(function(checkbox) {
-            if (checkbox.parentElement.style.display !== 'none') {
-                checkboxesDisplayed = true;
-            }
-        });
-
-        if (checkboxesDisplayed) {
-            question.style.display = 'block';
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.parentElement.style.display !== 'none') {
+            checkboxesDisplayed = true;
         }
     });
 
+    if (checkboxesDisplayed) {
+        question.style.display = 'block';
+    }
+});
 </script>
+
 
 {% endblock %}
