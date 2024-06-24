@@ -301,7 +301,7 @@ function validateTrips(includeHomeCheck) {
         errorMessage.remove();
     });
 
-                    // Check if tue_first_trip is the same as participant.vars.mo_last_trip
+    // Check if tue_first_trip is the same as participant.vars.mo_last_trip
     const sunFirstTrip = document.querySelector('[name="sun_first_trip"]').value;
     const satLastTrip = "{{ participant.vars.sat_last_trip }}";
     if (sunFirstTrip !== satLastTrip) {
